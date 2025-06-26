@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Hírek</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+            <h1>HÍRPORTÁL</h1>
+        </div>
+    </header>
+
+    <main>
+        {% for item in news %}
+            <article class="post">
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.content }}</p>
+                <small>{{ item.date.strftime('%Y-%m-%d %H:%M') }}</small>
+            </article>
+        {% endfor %}
+
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('news', page=page-1) }}">Előző</a>
+            {% endif %}
+
+            {% for p in range(1, total_pages + 1) %}
+                {% if p == page %}
+                    <strong>{{ p }}</strong>
+                {% else %}
+                    <a href="{{ url_for('news', page=p) }}">{{ p }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page < total_pages %}
+                <a href="{{ url_for('news', page=page+1) }}">Következő</a>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>
