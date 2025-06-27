@@ -19,6 +19,12 @@
                 <h2>{{ item.title }}</h2>
                 <p>{{ item.content }}</p>
                 <small>{{ item.date.strftime('%Y-%m-%d %H:%M') }}</small>
+
+                {% if session.logged_in %}
+                <form action="{{ url_for('delete_news', news_id=item.id) }}" method="post">
+                    <button type="submit">Törlés</button>
+                </form>
+                {% endif %}
             </article>
         {% endfor %}
 
@@ -38,13 +44,8 @@
             {% if page < total_pages %}
                 <a href="{{ url_for('news', page=page+1) }}">Következő</a>
             {% endif %}
-            {% if session.logged_in %}
-  <form action="{{ url_for('delete_news', news_id=item.id) }}" method="post">
-    <button type="submit">Törlés</button>
-  </form>
-{% endif %}
-
         </div>
     </main>
 </body>
 </html>
+

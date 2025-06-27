@@ -43,7 +43,8 @@ def news():
     return render_template('news.html',
                            news=news_items.items,
                            page=page,
-                           total_pages=news_items.pages)
+                           total_pages=news_items.pages,
+                           session=session)   # 🔑 Session átadás
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -82,7 +83,6 @@ def delete_news(news_id):
     db.session.delete(news_item)
     db.session.commit()
     return redirect(url_for('news'))
-
 
 if __name__ == '__main__':
     app.run(debug=True)
