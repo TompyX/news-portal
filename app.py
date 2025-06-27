@@ -33,7 +33,7 @@ with app.app_context():
 @app.route('/')
 def index():
     latest = News.query.order_by(News.date.desc()).first()
-    return render_template('index.html', latest=latest)
+    return render_template('index.html', latest=latest, session=session)
 
 @app.route('/news')
 def news():
@@ -44,7 +44,7 @@ def news():
                            news=news_items.items,
                            page=page,
                            total_pages=news_items.pages,
-                           session=session)   # 🔑 Session átadás
+                           session=session)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -55,7 +55,7 @@ def login():
             return redirect(url_for('admin'))
         else:
             error = 'Hibás felhasználónév vagy jelszó.'
-    return render_template('login.html', error=error)
+    return render_template('login.html', error=error, session=session)
 
 @app.route('/logout')
 def logout():
@@ -73,7 +73,7 @@ def admin():
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for('news'))
-    return render_template('admin.html')
+    return render_template('admin.html', session=session)
 
 @app.route('/delete/<int:news_id>', methods=['POST'])
 def delete_news(news_id):

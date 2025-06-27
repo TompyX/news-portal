@@ -5,22 +5,7 @@
     <title>Bejelentkezés</title>
 </head>
 <body>
-    <main>
-    {% if latest_post %}
-      <article class="post">
-        <h2>{{ latest_post.title }}</h2>
-        <p>{{ latest_post.content }}</p>
-        <small>{{ latest_post.date }}</small>
-      </article>
-    {% else %}
-      <p>Nincs elérhető hír.</p>
-    {% endif %}
-  </main>
-
-  <footer>
-    <p><a href="{{ url_for('admin') }}">Admin felület</a></p>
-  </footer>
-  
+    
     <h1>Admin bejelentkezés</h1>
     {% if error %}
         <p style="color:red;">{{ error }}</p>
