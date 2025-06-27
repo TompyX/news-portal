@@ -6,55 +6,43 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
     <header>
         <div class="logo-container">
             <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
             <h1>Hírportál</h1>
         </div>
     </header>
-    <nav>
-  <ul>
-    <li><a href="{{ url_for('index') }}">Főoldal</a></li>
-    <li><a href="{{ url_for('news') }}">Hírek</a></li>
-
-    {% if session.logged_in %}
-      <li><a href="{{ url_for('admin') }}">Admin</a></li>
-      <li><a href="{{ url_for('logout') }}">Kijelentkezés</a></li>
-    {% else %}
-      <li><a href="{{ url_for('login') }}">Bejelentkezés</a></li>
-    {% endif %}
-  </ul>
-</nav>
 
     <nav>
-  <ul>
-    <li><a href="{{ url_for('index') }}">Főoldal</a></li>
-    <li><a href="{{ url_for('news') }}">Hírek</a></li>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Főoldal</a></li>
+        <li><a href="{{ url_for('news') }}">Hírek</a></li>
 
-    {% if session.logged_in %}
-      <li><a href="{{ url_for('admin') }}">Admin</a></li>
-      <li><a href="{{ url_for('logout') }}">Kijelentkezés</a></li>
-    {% else %}
-      <li><a href="{{ url_for('login') }}">Bejelentkezés</a></li>
-    {% endif %}
-  </ul>
-</nav>
-
+        {% if session.logged_in %}
+          <li><a href="{{ url_for('admin') }}">Admin</a></li>
+          <li><a href="{{ url_for('logout') }}">Kijelentkezés</a></li>
+        {% else %}
+          <li><a href="{{ url_for('login') }}">Bejelentkezés</a></li>
+        {% endif %}
+      </ul>
+    </nav>
 
     <main>
-        {% if latest_post %}
+        {% if latest %}
             <article class="post">
-                <h2>{{ latest_post.title }}</h2>
-                <p>{{ latest_post.content }}</p>
-                <small>{{ latest_post.date }}</small>
+                <h2>{{ latest.title }}</h2>
+                <p>{{ latest.content }}</p>
+                <small>{{ latest.date.strftime('%Y-%m-%d %H:%M') }}</small>
             </article>
         {% else %}
             <p>Nincs elérhető hír.</p>
         {% endif %}
     </main>
+
     <footer>
-    <p><a href="{{ url_for('admin') }}">Admin felület</a></p>
-  </footer>
+        <p><a href="{{ url_for('admin') }}">Admin felület</a></p>
+    </footer>
 
 </body>
 </html>
