@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Bejelentkezés</title>
+</head>
+<body>
+    <main>
+    {% if latest_post %}
+      <article class="post">
+        <h2>{{ latest_post.title }}</h2>
+        <p>{{ latest_post.content }}</p>
+        <small>{{ latest_post.date }}</small>
+      </article>
+    {% else %}
+      <p>Nincs elérhető hír.</p>
+    {% endif %}
+  </main>
+
+  <footer>
+    <p><a href="{{ url_for('admin') }}">Admin felület</a></p>
+  </footer>
+  
+    <h1>Admin bejelentkezés</h1>
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST">
+        <label>Felhasználónév:</label><br>
+        <input type="text" name="username"><br><br>
+
+        <label>Jelszó:</label><br>
+        <input type="password" name="password"><br><br>
+
+        <button type="submit">Belépés</button>
+    </form>
+</body>
+</html>

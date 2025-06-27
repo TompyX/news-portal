@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Új hír létrehozása</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Új hír beküldése</h1>
+    </header>
+    <main>
+        <form method="POST">
+            <label for="title">Cím:</label><br>
+            <input type="text" name="title" required><br><br>
+
+            <label for="content">Tartalom:</label><br>
+            <textarea name="content" rows="8" cols="50" required></textarea><br><br>
+
+            <button type="submit">Hír mentése</button>
+        </form>
+    </main>
+</body>
+</html>
+<p><a href="{{ url_for('logout') }}">Kijelentkezés</a></p>

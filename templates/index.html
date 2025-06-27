@@ -1,9 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="hu">
 <head>
+    <meta charset="UTF-8">
     <title>Hírportál</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Üdv a hírportálon!</h1>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+            <h1>Hírportál</h1>
+        </div>
+    </header>
+
+    <main>
+        {% if latest_post %}
+            <article class="post">
+                <h2>{{ latest_post.title }}</h2>
+                <p>{{ latest_post.content }}</p>
+                <small>{{ latest_post.date }}</small>
+            </article>
+        {% else %}
+            <p>Nincs elérhető hír.</p>
+        {% endif %}
+    </main>
 </body>
 </html>

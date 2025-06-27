@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo-container img {
+    height: 50px;
+}
+
+main {
+    padding: 30px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.post {
+    margin-bottom: 50px;
+}
+
+.post h2 {
+    margin-bottom: 10px;
+}
+
+.post small {
+    color: gray;
+}
