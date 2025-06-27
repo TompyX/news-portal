@@ -74,5 +74,15 @@ def admin():
         return redirect(url_for('news'))
     return render_template('admin.html')
 
+@app.route('/delete/<int:news_id>', methods=['POST'])
+def delete_news(news_id):
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    news_item = News.query.get_or_404(news_id)
+    db.session.delete(news_item)
+    db.session.commit()
+    return redirect(url_for('news'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
