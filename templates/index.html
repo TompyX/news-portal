@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <title>Hírportál</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <title>Hírportál</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-    <header>
-        <div class="logo-container">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
-            <h1>Hírportál</h1>
-        </div>
-    </header>
+  <header class="bg-gray-800 text-white">
+    <div class="max-w-4xl mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center space-x-4">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="h-10">
+        <h1 class="text-2xl font-bold">Hírportál</h1>
+      </div>
+    </div>
+  </header>
 
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('index') }}">Főoldal</a></li>
-        <li><a href="{{ url_for('news') }}">Hírek</a></li>
+  <nav class="bg-gray-700">
+    <ul class="max-w-4xl mx-auto flex space-x-4 p-4">
+      <li><a href="{{ url_for('index') }}" class="text-white hover:text-blue-400">Főoldal</a></li>
+      <li><a href="{{ url_for('news') }}" class="text-white hover:text-blue-400">Hírek</a></li>
 
-        {% if session.logged_in %}
-          <li><a href="{{ url_for('admin') }}">Admin</a></li>
-          <li><a href="{{ url_for('logout') }}">Kijelentkezés</a></li>
-        {% else %}
-          <li><a href="{{ url_for('login') }}">Bejelentkezés</a></li>
-        {% endif %}
-      </ul>
-    </nav>
+      {% if session.logged_in %}
+        <li><a href="{{ url_for('admin') }}" class="text-white hover:text-blue-400">Admin</a></li>
+        <li><a href="{{ url_for('logout') }}" class="text-white hover:text-blue-400">Kijelentkezés</a></li>
+      {% else %}
+        <li><a href="{{ url_for('login') }}" class="text-white hover:text-blue-400">Bejelentkezés</a></li>
+      {% endif %}
+    </ul>
+  </nav>
 
-    <main>
-        {% if latest %}
-            <article class="post">
-                <h2>{{ latest.title }}</h2>
-                <p>{{ latest.content }}</p>
-                <small>{{ latest.date.strftime('%Y-%m-%d %H:%M') }}</small>
-            </article>
-        {% else %}
-            <p>Nincs elérhető hír.</p>
-        {% endif %}
-    </main>
+  <main class="max-w-4xl mx-auto p-6">
+    {% if latest %}
+      <article class="bg-white rounded shadow p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-2">{{ latest.title }}</h2>
+        <p class="mb-4">{{ latest.content }}</p>
+        <small class="text-gray-500">{{ latest.date.strftime('%Y-%m-%d %H:%M') }}</small>
+      </article>
+    {% else %}
+      <p>Nincs elérhető hír.</p>
+    {% endif %}
+  </main>
 
-    <footer>
-        <p><a href="{{ url_for('admin') }}">Admin felület</a></p>
-    </footer>
+  <footer class="bg-gray-800 text-white text-center p-4">
+    <p><a href="{{ url_for('admin') }}" class="hover:text-blue-400">Admin felület</a></p>
+  </footer>
 
 </body>
 </html>

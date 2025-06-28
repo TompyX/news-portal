@@ -1,65 +1,68 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <title>Hírek</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <title>Hírek</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <header>
-        <div class="logo-container">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
-            <h1>HÍRPORTÁL</h1>
-        </div>
-    </header>
+<body class="bg-gray-50 text-gray-800">
 
-    <nav>
-  <ul>
-    <li><a href="{{ url_for('index') }}">Főoldal</a></li>
-    <li><a href="{{ url_for('news') }}">Hírek</a></li>
+  <header class="bg-gray-800 text-white">
+    <div class="max-w-4xl mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center space-x-4">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="h-10">
+        <h1 class="text-2xl font-bold">Hírportál</h1>
+      </div>
+    </div>
+  </header>
 
-    {% if session.logged_in %}
-      <li><a href="{{ url_for('admin') }}">Admin</a></li>
-      <li><a href="{{ url_for('logout') }}">Kijelentkezés</a></li>
-    {% else %}
-      <li><a href="{{ url_for('login') }}">Bejelentkezés</a></li>
-    {% endif %}
-  </ul>
-</nav>
+  <nav class="bg-gray-700">
+    <ul class="max-w-4xl mx-auto flex space-x-4 p-4">
+      <li><a href="{{ url_for('index') }}" class="text-white hover:text-blue-400">Főoldal</a></li>
+      <li><a href="{{ url_for('news') }}" class="text-white hover:text-blue-400">Hírek</a></li>
 
-    <main>
-        {% for item in news %}
-            <article class="post">
-                <h2>{{ item.title }}</h2>
-                <p>{{ item.content }}</p>
-                <small>{{ item.date.strftime('%Y-%m-%d %H:%M') }}</small>
+      {% if session.logged_in %}
+        <li><a href="{{ url_for('admin') }}" class="text-white hover:text-blue-400">Admin</a></li>
+        <li><a href="{{ url_for('logout') }}" class="text-white hover:text-blue-400">Kijelentkezés</a></li>
+      {% else %}
+        <li><a href="{{ url_for('login') }}" class="text-white hover:text-blue-400">Bejelentkezés</a></li>
+      {% endif %}
+    </ul>
+  </nav>
 
-                {% if session.logged_in %}
-                <form action="{{ url_for('delete_news', news_id=item.id) }}" method="post">
-                    <button type="submit">Törlés</button>
-                </form>
-                {% endif %}
-            </article>
-        {% endfor %}
+  <main class="max-w-4xl mx-auto p-6">
+    {% for item in news %}
+      <article class="bg-white rounded shadow p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-2">{{ item.title }}</h2>
+        <p class="mb-4">{{ item.content }}</p>
+        <small class="text-gray-500">{{ item.date.strftime('%Y-%m-%d %H:%M') }}</small>
 
-        <div class="pagination">
-            {% if page > 1 %}
-                <a href="{{ url_for('news', page=page-1) }}">Előző</a>
-            {% endif %}
+        {% if session.logged_in %}
+          <form action="{{ url_for('delete_news', news_id=item.id) }}" method="post" class="mt-4">
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">Törlés</button>
+          </form>
+        {% endif %}
+      </article>
+    {% endfor %}
 
-            {% for p in range(1, total_pages + 1) %}
-                {% if p == page %}
-                    <strong>{{ p }}</strong>
-                {% else %}
-                    <a href="{{ url_for('news', page=p) }}">{{ p }}</a>
-                {% endif %}
-            {% endfor %}
+    <div class="flex justify-center items-center space-x-2 mt-8">
+      {% if page > 1 %}
+        <a href="{{ url_for('news', page=page-1) }}" class="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400">Előző</a>
+      {% endif %}
 
-            {% if page < total_pages %}
-                <a href="{{ url_for('news', page=page+1) }}">Következő</a>
-            {% endif %}
-        </div>
-    </main>
+      {% for p in range(1, total_pages + 1) %}
+        {% if p == page %}
+          <span class="px-3 py-2 bg-blue-500 text-white rounded">{{ p }}</span>
+        {% else %}
+          <a href="{{ url_for('news', page=p) }}" class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300">{{ p }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page < total_pages %}
+        <a href="{{ url_for('news', page=page+1) }}" class="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400">Következő</a>
+      {% endif %}
+    </div>
+  </main>
+
 </body>
 </html>
-
