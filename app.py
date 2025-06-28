@@ -6,7 +6,7 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'fejlesztesi_kulcs')
 
-# Adatbázis URI környezeti változóból (Render), vagy fallback SQLite-ra
+# Adatbázis URI környezeti változóból (Render), fallback SQLite-ra lokálisan
 db_uri = os.environ.get('DATABASE_URL', 'sqlite:///news.db')
 if db_uri.startswith("postgres://"):
     db_uri = db_uri.replace("postgres://", "postgresql://", 1)
@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 
 # Egyszerű bejelentkezési adatok
 admin_user = os.environ.get('ADMIN_USER', 'admin')
-admin_pass = os.environ.get('ADMIN_PASS', 'jelszo123')
+admin_pass = os.environ.get('ADMIN_PASS', 'local_dev_only_superstrongpassword')
 
 # Adatbázis modell
 class News(db.Model):

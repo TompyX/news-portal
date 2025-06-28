@@ -5,7 +5,20 @@
     <title>Bejelentkezés</title>
 </head>
 <body>
-    
+    <nav>
+  <ul>
+    <li><a href="{{ url_for('index') }}">Főoldal</a></li>
+    <li><a href="{{ url_for('news') }}">Hírek</a></li>
+
+    {% if session.logged_in %}
+      <li><a href="{{ url_for('admin') }}">Admin</a></li>
+      <li><a href="{{ url_for('logout') }}">Kijelentkezés</a></li>
+    {% else %}
+      <li><a href="{{ url_for('login') }}">Bejelentkezés</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
     <h1>Admin bejelentkezés</h1>
     {% if error %}
         <p style="color:red;">{{ error }}</p>
