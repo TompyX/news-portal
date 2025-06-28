@@ -5,43 +5,43 @@
   <title>Bejelentkezés</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="body">
 
-  <nav class="bg-gray-700">
-    <ul class="max-w-4xl mx-auto flex space-x-4 p-4">
-      <li><a href="{{ url_for('index') }}" class="text-white hover:text-blue-400">Főoldal</a></li>
-      <li><a href="{{ url_for('news') }}" class="text-white hover:text-blue-400">Hírek</a></li>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li><a href="{{ url_for('index') }}">Főoldal</a></li>
+      <li><a href="{{ url_for('news') }}">Hírek</a></li>
 
       {% if session.logged_in %}
-        <li><a href="{{ url_for('admin') }}" class="text-white hover:text-blue-400">Admin</a></li>
-        <li><a href="{{ url_for('logout') }}" class="text-white hover:text-blue-400">Kijelentkezés</a></li>
+        <li><a href="{{ url_for('admin') }}">Admin</a></li>
+        <li><a href="{{ url_for('logout') }}">Kijelentkezés</a></li>
       {% else %}
-        <li><a href="{{ url_for('login') }}" class="text-white hover:text-blue-400">Bejelentkezés</a></li>
+        <li><a href="{{ url_for('login') }}">Bejelentkezés</a></li>
       {% endif %}
     </ul>
   </nav>
 
-  <main class="flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
-      <h1 class="text-2xl font-bold mb-6 text-center">Admin bejelentkezés</h1>
+  <main class="login-main">
+    <div class="login-box">
+      <h1 class="login-title">Admin bejelentkezés</h1>
 
       {% if error %}
-        <p class="text-red-600 mb-4">{{ error }}</p>
+        <p class="error-message">{{ error }}</p>
       {% endif %}
 
-      <form method="POST" class="space-y-4">
-        <div>
-          <label class="block mb-1 font-medium">Felhasználónév:</label>
-          <input type="text" name="username" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+      <form method="POST" class="login-form">
+        <div class="form-group">
+          <label class="form-label">Felhasználónév:</label>
+          <input type="text" name="username" class="form-input">
         </div>
 
-        <div>
-          <label class="block mb-1 font-medium">Jelszó:</label>
-          <input type="password" name="password" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+        <div class="form-group">
+          <label class="form-label">Jelszó:</label>
+          <input type="password" name="password" class="form-input">
         </div>
 
-        <div class="text-center">
-          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Belépés</button>
+        <div class="form-submit">
+          <button type="submit" class="submit-button">Belépés</button>
         </div>
       </form>
     </div>

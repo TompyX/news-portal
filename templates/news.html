@@ -5,61 +5,61 @@
   <title>Hírek</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="body">
 
-  <header class="bg-gray-800 text-white">
-    <div class="max-w-4xl mx-auto flex items-center justify-between p-4">
-      <div class="flex items-center space-x-4">
-        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="h-10">
-        <h1 class="text-2xl font-bold">Hírportál</h1>
+  <header class="header">
+    <div class="header-container">
+      <div class="header-logo-title">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+        <h1 class="site-title">Hírportál</h1>
       </div>
     </div>
   </header>
 
-  <nav class="bg-gray-700">
-    <ul class="max-w-4xl mx-auto flex space-x-4 p-4">
-      <li><a href="{{ url_for('index') }}" class="text-white hover:text-blue-400">Főoldal</a></li>
-      <li><a href="{{ url_for('news') }}" class="text-white hover:text-blue-400">Hírek</a></li>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li><a href="{{ url_for('index') }}">Főoldal</a></li>
+      <li><a href="{{ url_for('news') }}">Hírek</a></li>
 
       {% if session.logged_in %}
-        <li><a href="{{ url_for('admin') }}" class="text-white hover:text-blue-400">Admin</a></li>
-        <li><a href="{{ url_for('logout') }}" class="text-white hover:text-blue-400">Kijelentkezés</a></li>
+        <li><a href="{{ url_for('admin') }}">Admin</a></li>
+        <li><a href="{{ url_for('logout') }}">Kijelentkezés</a></li>
       {% else %}
-        <li><a href="{{ url_for('login') }}" class="text-white hover:text-blue-400">Bejelentkezés</a></li>
+        <li><a href="{{ url_for('login') }}">Bejelentkezés</a></li>
       {% endif %}
     </ul>
   </nav>
 
-  <main class="max-w-4xl mx-auto p-6">
+  <main class="main-content">
     {% for item in news %}
-      <article class="bg-white rounded shadow p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-2">{{ item.title }}</h2>
-        <p class="mb-4">{{ item.content }}</p>
-        <small class="text-gray-500">{{ item.date.strftime('%Y-%m-%d %H:%M') }}</small>
+      <article class="news-article">
+        <h2 class="news-title">{{ item.title }}</h2>
+        <p class="news-content">{{ item.content }}</p>
+        <small class="news-date">{{ item.date.strftime('%Y-%m-%d %H:%M') }}</small>
 
         {% if session.logged_in %}
-          <form action="{{ url_for('delete_news', news_id=item.id) }}" method="post" class="mt-4">
-            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">Törlés</button>
+          <form action="{{ url_for('delete_news', news_id=item.id) }}" method="post" class="delete-form">
+            <button type="submit" class="delete-button">Törlés</button>
           </form>
         {% endif %}
       </article>
     {% endfor %}
 
-    <div class="flex justify-center items-center space-x-2 mt-8">
+    <div class="pagination">
       {% if page > 1 %}
-        <a href="{{ url_for('news', page=page-1) }}" class="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400">Előző</a>
+        <a href="{{ url_for('news', page=page-1) }}" class="pagination-button">Előző</a>
       {% endif %}
 
       {% for p in range(1, total_pages + 1) %}
         {% if p == page %}
-          <span class="px-3 py-2 bg-blue-500 text-white rounded">{{ p }}</span>
+          <span class="pagination-current">{{ p }}</span>
         {% else %}
-          <a href="{{ url_for('news', page=p) }}" class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300">{{ p }}</a>
+          <a href="{{ url_for('news', page=p) }}" class="pagination-button">{{ p }}</a>
         {% endif %}
       {% endfor %}
 
       {% if page < total_pages %}
-        <a href="{{ url_for('news', page=page+1) }}" class="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400">Következő</a>
+        <a href="{{ url_for('news', page=page+1) }}" class="pagination-button">Következő</a>
       {% endif %}
     </div>
   </main>
