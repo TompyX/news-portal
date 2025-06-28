@@ -188,3 +188,21 @@ footer a:hover {
   text-align: center;
   margin-bottom: 1rem;
 }
+.nav-list {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-list li {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.nav-list a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-list a:hover {
+  color: #60a5fa;
+}
